@@ -10,13 +10,13 @@ public class IT2CARAMBALAPISGC {
     public void addStudents(){
         Scanner sc = new Scanner(System.in);
         config conf = new config();
-        System.out.print("Product Name: ");
+        System.out.print("PRODUCT NAME: ");
         String name = sc.next();
-        System.out.print("Price: ");
+        System.out.print("PRODUCT PRICE: ");
         String price = sc.next();
-        System.out.print("Stock: ");
+        System.out.print("PRODUCT STOCK: ");
         String stock = sc.next();
-        System.out.print("Sold: ");
+        System.out.print("PRODUCT SOLD: ");
         String sold = sc.next();
         
         String sql = "INSERT INTO PRODUCT_DETAILS ( NAME, PRICE, STOCK, SOLD) VALUES (?, ?, ?, ?)";
@@ -53,7 +53,7 @@ public class IT2CARAMBALAPISGC {
         int action = in.nextInt();
         in.nextLine();
         while (action>5){
-            System.out.println("!!SELECTION INVALID!\n TRY AGAIN: ");
+            System.out.print("!!SELECTION INVALID!\n TRY AGAIN: ");
              action = in.nextInt();
             
         }
@@ -70,7 +70,13 @@ public class IT2CARAMBALAPISGC {
                 
                 
             case 2: 
-                
+                config conf = new config();
+                String test = "SELECT * FROM PRODUCT_DETAILS";
+                String[] headers = {"ID", "NAME", "PRICE", "SOLD", "STOCK"};
+                String[] Columns = {"ID", "NAME", "PRICE", "SOLD", "STOCK"};
+
+                conf.viewRecords(test, headers, Columns);
+            
                 break;
                 
             case 3:
@@ -82,7 +88,8 @@ public class IT2CARAMBALAPISGC {
                 break;
                 
             case 5:
-                
+                System.out.println("Program exiting. . .");
+                System.exit(0);
                 break;
             
         }
