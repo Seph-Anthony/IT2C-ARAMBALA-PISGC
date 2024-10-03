@@ -84,4 +84,20 @@ public static Connection connectDB() {
             System.out.println("Error retrieving records: " + e.getMessage());
         }
     }
+    
+    public void deleteRecord(String sql, String... values) {
+        try (Connection conn = this.connectDB(); // Use the connectDB method
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // Loop through the values and set them in the prepared statement
+            for (int i = 0; i < values.length; i++) {
+                pstmt.setString(i + 1, values[i]); // PreparedStatement index starts at 1
+            }
+
+            pstmt.executeUpdate();
+            System.out.println("Record deleted successfully!");
+        } catch (SQLException e) {
+            System.out.println("Error deleting record: " + e.getMessage());
+        }
+    }
 }
