@@ -18,34 +18,55 @@ public class PRODUCT {
          Scanner in = new Scanner (System.in);
         
         String another = null;
-        
+        String input = null;
+        int action = 0;
 PRODUCT prod = new PRODUCT();
         
         do{
             
-        System.out.println("CONVINIENCE: PRODUCT INVENTORY || SALES GENERATION ");
+        System.out.println("||PRODUCT||");
         System.out.println("|1. ADD PRODUCT \t|");
         System.out.println("|2. VIEW PRODUCT \t|");
         System.out.println("|3. UPDATE PRODUCT\t|");
         System.out.println("|4. DELETE PRODUCT\t|");
         System.out.println("|5. EXIT PRODUCT\t|");
         System.out.println("___________________________");
-        System.out.print("Enter Action: ");
-        
-        while(!in.hasNextInt()){
-            System.out.println("Character is Invalid: ");
-            System.out.print("Enter a choice: ");
-            in.nextLine();
+          while(true){
+            System.out.print("INPUT: ");
+             input = in.nextLine().trim();
+           
+                
+              
+            
+                
+                
+            
+            
+            try{
+                
+                action = Integer.parseInt(input);
+                if(action>=1 && action <=5){
+                    
+                    break;
+                }
+                
+               
+                
+                else{
+                    
+                    System.out.println("Number Input Invalid");
+                }
+            }
+            
+            catch(NumberFormatException e){
+                
+                System.out.println("Invalid Input");
+                
+            }
+            
+            
             
         }
-        int action = in.nextInt();
-        in.nextLine();
-        while (action>5){
-            System.out.print("!!SELECTION INVALID!\n TRY AGAIN: ");
-             action = in.nextInt();
-            
-        }
-        
         
         switch (action){
             
@@ -70,7 +91,7 @@ PRODUCT prod = new PRODUCT();
                 
 //                System.out.println("||WELCOME TO UPDATE PRODUCT||");
                 
-                     prod.viewprod();
+                  
                       prod.updateprod();
                   
                 break;
@@ -78,7 +99,7 @@ PRODUCT prod = new PRODUCT();
             case 4:
                 
               
-                  prod.viewprod();
+         
                 
                   
                 
@@ -117,7 +138,7 @@ PRODUCT prod = new PRODUCT();
      public void addprod(){
         Scanner in = new Scanner(System.in);
         config conf = new config();
-
+String status = null;
         String another = null;
         String name;
    double price = 0;
@@ -128,14 +149,19 @@ PRODUCT prod = new PRODUCT();
             
            
             System.out.print("Enter Number of Products to be Add: ");
-            int prod = in.nextInt();
             
+        while(!in.hasNextInt()){
+            System.out.println("Character is Invalid: ");
+            System.out.print("Enter an ID Again: ");
             in.nextLine();
             
+        }
+        int prod = in.nextInt();
+        in.nextLine();
             for(int i = 0; i<prod; i++){
             
         while(true){
-        System.out.print("PRODUCT NAME: ");
+        System.out.printf("%d. PRODUCT NAME: ",i+1);
          name = in.nextLine().trim();
       
         if(!name.equals("")){
@@ -199,7 +225,7 @@ while(true){
       String stockinput = in.nextLine().trim();
       try {
           stock = Integer.parseInt(stockinput);
-          if(stock >= 0){
+          if(stock >=0){
               
               break;
           }
@@ -218,13 +244,13 @@ while(true){
 }
 
 
-      
+      status = (stock == 0)  ?"NOT AVAILABLE":"AVAILABLE";
         
       
-        String sql = "INSERT INTO PRODUCT_DETAILS ( NAME, PRICE, STOCK) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO PRODUCT_DETAILS ( NAME, PRICE, STOCK, STATUS) VALUES (?, ?, ?, ?)";
 
         
-        conf.addRecord(sql, name, price, stock);
+        conf.addRecord(sql, name, price, stock, status);
         
             }
         
@@ -243,7 +269,7 @@ while(true){
         }while (another.equals("yes") || another.equals("Yes") || another.equals("YES"));
         
         
-     }
+     } 
     
         
         
@@ -251,9 +277,10 @@ while(true){
          public void deleteprod(){
           Scanner in = new Scanner(System.in);
           config del = new config();
-          
+          PRODUCT prod = new PRODUCT();
           String another = null;
           do{
+                 prod.viewprod();
           System.out.println("||DELETE PRODUCT||");
           
           System.out.print("Enter the ID you want to delete: ");
@@ -268,6 +295,12 @@ while(true){
         int id = in.nextInt();
         in.nextLine();
           
+        while(del.getSingleValue("SELECT ID FROM PRODUCT_DETAILS WHERE ID = ? ", id) == 0){
+            System.out.print("ID doesn't exist \n Try Again: ");
+            id = in.nextInt();
+            
+        }
+        
           String deleteSQL = "DELETE FROM PRODUCT_DETAILS WHERE ID = ?";
           
           del.deleteRecord(deleteSQL, id);
@@ -279,7 +312,7 @@ while(true){
         while(!another.equalsIgnoreCase("yes ") && !another.equalsIgnoreCase("Yes") && !another.equalsIgnoreCase("YES") && !another.equalsIgnoreCase("no")
               &&  !another.equalsIgnoreCase("NO") && !another.equalsIgnoreCase("No")){
             
-            System.out.print(" |INPUT INVALID| \n Try again: ");
+            System.out.print(" \n Again: ");
             another=in.nextLine();
           
          }
@@ -290,26 +323,43 @@ while(true){
     
       config conf = new config();
     String test = "SELECT * FROM PRODUCT_DETAILS";
-                String[] headers = {"ID", "NAME", "PRICE", "STOCK"};
-                String[] Columns = {"ID", "NAME", "PRICE", "STOCK"};
+                String[] headers = {"ID", "NAME", "PRICE", "STOCK", "STATUS"};
+                String[] Columns = {"ID", "NAME", "PRICE", "STOCK","STATUS"};
 
     conf.viewRecords(test, headers, Columns);
     
 }
       public void updateprod(){
        Scanner in = new Scanner (System.in);
-               
+               config conf = new config();
 PRODUCT prod = new PRODUCT();
+String status = null;
   String another  = null;
    double price = 0;
-     double stock = 0;
+     int stock = 0;
      String name = null;
+    
   
        do {
                prod.viewprod();
           System.out.print("Enter the ID you want to Update: ");
+          
+     
+          
+                 while(!in.hasNextInt()){
+            System.out.println("Character is Invalid: ");
+            System.out.print("Enter a choice: ");
+            in.nextLine();
+            
+        }
           int id = in.nextInt();
           
+          
+           while(conf.getSingleValue("SELECT ID FROM PRODUCT_DETAILS WHERE ID = ? ", id)==0){
+               System.out.print("ID doesn't exist\n TRY AGAIN: ");
+               id = in.nextInt();
+              
+          }
           System.out.println("INPUT UPDATE");
           System.out.println("____________");
           System.out.println("1. NEW PRODUCT NAME");
@@ -340,7 +390,7 @@ PRODUCT prod = new PRODUCT();
                      
                      while(true){
                 System.out.print("Enter the new product name: ");
-                 name = in.nextLine();
+                 name = in.nextLine().trim();
                   if(!name.equals("")){
            if(name.matches("^[a-z A-Z]+$")){
            break;
@@ -392,13 +442,13 @@ PRODUCT prod = new PRODUCT();
           }
           else {
               
-              System.out.println("Product Stock should not be a negative: ");
+              System.out.println("Product Price should not be a negative: ");
           }
           
       }
       
       catch (NumberFormatException e){
-          System.out.println("Product Stock Invalid");
+          System.out.println("Product Price Invalid");
           
       }
       
@@ -436,8 +486,10 @@ PRODUCT prod = new PRODUCT();
       }
                  }
                 
-                String stocksql = "UPDATE PRODUCT_DETAILS SET STOCK = ? WHERE ID = ?";
-                stockconfi.updateRecord(stocksql, stock, id);
+                 status = (stock == 0)  ?"NOT AVAILABLE":"AVAILABLE";
+                 
+                String stocksql = "UPDATE PRODUCT_DETAILS SET STOCK = ?, STATUS = ? WHERE ID = ?";
+                stockconfi.updateRecord(stocksql, stock, id, status);
                 
                 break;
                   
