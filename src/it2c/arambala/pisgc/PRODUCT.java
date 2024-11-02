@@ -110,7 +110,7 @@ PRODUCT prod = new PRODUCT();
                 
             case 5:
                 
-    
+  
                  
          
                 
@@ -143,21 +143,37 @@ String status = null;
         String name;
    double price = 0;
    int stock = 0;
+   String num = null;
+   int prod = 0;
         do{
         
             
             
+           while(true){
+               
            
             System.out.print("Enter Number of Products to be Add: ");
-            
-        while(!in.hasNextInt()){
-            System.out.println("Character is Invalid: ");
-            System.out.print("Enter an ID Again: ");
-            in.nextLine();
-            
-        }
-        int prod = in.nextInt();
-        in.nextLine();
+           num = in.nextLine().trim();
+           
+           try{
+               prod = Integer.parseInt(num);
+               
+               if(prod >= 0){
+                   
+                   break;
+                   
+               }
+               else{
+                   System.out.println("Number Input Invalid");
+                   
+               }
+           }
+           catch(NumberFormatException e){
+               System.out.println("Invalid Input");
+           }
+           }
+      
+     
             for(int i = 0; i<prod; i++){
             
         while(true){
@@ -279,21 +295,38 @@ while(true){
           config del = new config();
           PRODUCT prod = new PRODUCT();
           String another = null;
+          String idinput = null;
+          int id = 0;
           do{
                  prod.viewprod();
           System.out.println("||DELETE PRODUCT||");
           
+          while(true){
           System.out.print("Enter the ID you want to delete: ");
+        idinput = in.nextLine().trim();
         
-          
-           while(!in.hasNextInt()){
-            System.out.println("Character is Invalid: ");
-            System.out.print("Enter an ID again: ");
-            in.nextLine();
+        try{
+            id = Integer.parseInt(idinput);
+            if(id>=0){
+                
+                break;
+            }
+            else{
+                
+                
+                System.out.println("Number Input Invalid");
+            }
+            
             
         }
-        int id = in.nextInt();
-        in.nextLine();
+        catch(NumberFormatException e){
+            System.out.println("Invalid Input");
+            
+        }
+          
+          }
+          
+
           
         while(del.getSingleValue("SELECT ID FROM PRODUCT_DETAILS WHERE ID = ? ", id) == 0){
             System.out.print("ID doesn't exist \n Try Again: ");
@@ -338,22 +371,34 @@ String status = null;
    double price = 0;
      int stock = 0;
      String name = null;
-    
+     String input = null;
+  int action = 0;  
+  String idinput = null;
+  int id = 0;
   
        do {
                prod.viewprod();
+               while(true){
           System.out.print("Enter the ID you want to Update: ");
+          idinput = in.nextLine().trim();
+     try{
+         id = Integer.parseInt(idinput);
+         if(action>=0){
+             break;
+         }
+         else{
+             
+             System.out.println("Number Input Invalid");
+         }
+         
+     }
+     catch(NumberFormatException e){
+         System.out.println("Invalid Iput");
+     }
           
-     
           
-                 while(!in.hasNextInt()){
-            System.out.println("Character is Invalid: ");
-            System.out.print("Enter a choice: ");
-            in.nextLine();
-            
-        }
-          int id = in.nextInt();
-          
+               }
+        
           
            while(conf.getSingleValue("SELECT ID FROM PRODUCT_DETAILS WHERE ID = ? ", id)==0){
                System.out.print("ID doesn't exist\n TRY AGAIN: ");
@@ -365,23 +410,37 @@ String status = null;
           System.out.println("1. NEW PRODUCT NAME");
           System.out.println("2. NEW PRODUCT PRICE");
           System.out.println("3. NEW PRODUCT STOCK");
-                 
+                 while (true){
           System.out.print("Enter action: ");
-        
+        input = in.nextLine().trim();
+          
+          
+           
+            try{
+                
+                action = Integer.parseInt(input);
+                if(action>=1 && action <=3){
+                    
+                    break;
+                }
+                
+               
+                
+                else{
+                    
+                    System.out.println("Number Input Invalid");
+                }
+            }
+            
+            catch(NumberFormatException e){
+                
+                System.out.println("Invalid Input");
+                
+            }
+           
+                 }
       
-                    while(!in.hasNextInt()){
-            System.out.println("Character is Invalid: ");
-            System.out.print("Enter a choice: ");
-            in.nextLine();
-            
-        }
-        int action = in.nextInt();
-        in.nextLine();
-        while (action>4){
-            System.out.print("!!SELECTION INVALID!\n TRY AGAIN: ");
-             action = in.nextInt();
-            
-        }
+
         switch (action){
             
   

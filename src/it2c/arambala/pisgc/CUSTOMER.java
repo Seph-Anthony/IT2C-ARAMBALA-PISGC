@@ -96,14 +96,14 @@ custom.updatecustomer();
             case 5:
                 
  
-                 
+             
          
                 
                 break;
             
         }
          
-           System.out.println("Would you like to Input Another Customer Transactions(Yes|No)?");
+           System.out.print("Would you like to Input Another Customer Transactions(Yes|No): ");
             another = in.nextLine();
              while(!another.equalsIgnoreCase("yes ") && !another.equalsIgnoreCase("Yes") && !another.equalsIgnoreCase("YES") && !another.equalsIgnoreCase("no")
               &&  !another.equalsIgnoreCase("NO") && !another.equalsIgnoreCase("No")){
@@ -127,23 +127,37 @@ custom.updatecustomer();
         String lname = null;
         String email = null;
         String contact =null;
-        
-         
+        String number = null;
+         int cus = 0;
         System.out.println("||ADD CUSTOMER||");
         
         do{
         
+            while(true){
             System.out.print("Enter the number of customers: ");
+          number = in.nextLine().trim();
           
-        while(!in.hasNextInt()){
-            System.out.println("Character is Invalid: ");
-            System.out.print("Enter an ID Again: ");
-            in.nextLine();
-            
-        }
-        int cus = in.nextInt();
-        in.nextLine();
-            
+          try{
+              cus = Integer.parseInt(number);
+              if(cus>=0){
+               break;   
+              }
+              
+              else{
+                  System.out.println("Number Input Invalid");
+                  
+              }
+              
+              
+          }
+          
+          catch(NumberFormatException e){
+              
+              System.out.println("Invalid Input");
+          }
+            }
+       
+    
             for(int i = 0; i<cus; i++){
                 while(true){
                 System.out.printf("%d. CUSTOMER FIRST NAME: ",i+1);
@@ -154,7 +168,7 @@ custom.updatecustomer();
                         break;
                     }
                     else {
-                        System.out.println("Customer First Name SHould Only Contain Characters");
+                        System.out.println("Customer First Name Should Only Contain Characters");
                         
                     }
                     
@@ -299,17 +313,36 @@ conf.viewRecords(sql, header, colom);
         String email = null;
         String contact = null;
         String another = null;
+        String customerinput = null;
+        int action = 0;
         
         do{
+            
+            while(true){
         System.out.print("Enter the ID of the Customer to Update: ");
-                  while(!in.hasNextInt()){
-            System.out.println("Character is Invalid: ");
-            System.out.print("Enter an ID Again: ");
-            in.nextLine();
+        customerinput = in.nextLine().trim();
+        
+        try{
+            action = Integer.parseInt(customerinput);
+            
+            if(action>=0){
+                
+                break;
+                
+            }
+            else{
+                
+                System.out.println("Number Invalid Input");
+            }
             
         }
-        int action = in.nextInt();
-        in.nextLine();
+        
+        catch(NumberFormatException e){
+            
+        }
+        
+        
+            }
       
         while(conf.getSingleValue("SELECT c_id FROM CUSTOMER_DETAILS WHERE c_id = ? ", action) == 0){
             
@@ -415,20 +448,36 @@ conf.viewRecords(sql, header, colom);
         config conf = new config();
         
         String another = null;
+        String delete = null;
         int id = 0;
+        
+        
+      
         
         System.out.println("||DELETE CUSTOMER||");
         do{
+            while(true){
             System.out.print("Enter the ID of the Customer: ");
-               while(!in.hasNextInt()){
-            System.out.println("Character is Invalid: ");
-            System.out.print("Enter an ID Again: ");
-            in.nextLine();
-            
-        }
-         id = in.nextInt();
-         in.nextLine();
+         delete = in.nextLine().trim();
          
+         try {
+             
+             id = Integer.parseInt(delete);
+             if(id>= 0){
+              break;   
+             }
+             
+             else{
+                 System.out.println("Number Input Invalid");
+                 
+             }
+         }
+         catch(NumberFormatException e){
+             System.out.println("Invalid Input");
+             
+         }
+         
+            }
          while(conf.getSingleValue("SELECT c_id FROM CUSTOMER_DETAILS WHERE c_id = ? ", id)==0){
              System.out.println("ID doesn't exist\n Try Again: ");
              id=in.nextInt();
