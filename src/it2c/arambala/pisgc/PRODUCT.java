@@ -209,7 +209,7 @@ String status = null;
 
 
 while (true) {
-    System.out.print("PRODUCT PRICE: ");
+    System.out.printf("%d. PRODUCT PRICE: ",i+1);
 String priceinput = in.nextLine().trim();
     
 try{
@@ -237,7 +237,7 @@ catch (NumberFormatException e){
 
 
 while(true){
-      System.out.print("PRODUCT STOCK: ");
+      System.out.printf("%d. PRODUCT STOCK: ",i+1);
       String stockinput = in.nextLine().trim();
       try {
           stock = Integer.parseInt(stockinput);
@@ -403,6 +403,7 @@ String status = null;
            while(conf.getSingleValue("SELECT ID FROM PRODUCT_DETAILS WHERE ID = ? ", id)==0){
                System.out.print("ID doesn't exist\n TRY AGAIN: ");
                id = in.nextInt();
+               in.nextLine();
               
           }
           System.out.println("INPUT UPDATE");
@@ -548,7 +549,7 @@ String status = null;
                  status = (stock == 0)  ?"NOT AVAILABLE":"AVAILABLE";
                  
                 String stocksql = "UPDATE PRODUCT_DETAILS SET STOCK = ?, STATUS = ? WHERE ID = ?";
-                stockconfi.updateRecord(stocksql, stock, id, status);
+                stockconfi.updateRecord(stocksql, stock, status, id);
                 
                 break;
                   
