@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class CUSTOMER {
     
     public void infocustomer(){
+        IT2CARAMBALAPISGC done = new IT2CARAMBALAPISGC();
         Scanner in = new Scanner (System.in);
         CUSTOMER custom = new CUSTOMER();
         String another = null;
@@ -88,14 +89,15 @@ custom.updatecustomer();
                 
             case 4:
                 
-              custom.viewcustomer();
+              
                 custom.deletecustomer();
             
                 break;
                 
             case 5:
                 
- 
+ done.main(new String[] {});
+                
              
          
                 
@@ -446,7 +448,7 @@ conf.viewRecords(sql, header, colom);
     public void deletecustomer(){
         Scanner in =new Scanner (System.in);
         config conf = new config();
-        
+        CUSTOMER custom = new CUSTOMER();
         String another = null;
         String delete = null;
         int id = 0;
@@ -456,6 +458,7 @@ conf.viewRecords(sql, header, colom);
         
         System.out.println("||DELETE CUSTOMER||");
         do{
+            custom.viewcustomer();
             while(true){
             System.out.print("Enter the ID of the Customer: ");
          delete = in.nextLine().trim();

@@ -16,7 +16,7 @@ public class PRODUCT {
     public void infoproduct(){
         
          Scanner in = new Scanner (System.in);
-        
+        IT2CARAMBALAPISGC done = new IT2CARAMBALAPISGC();
         String another = null;
         String input = null;
         int action = 0;
@@ -111,7 +111,7 @@ PRODUCT prod = new PRODUCT();
             case 5:
                 
   
-                 
+                 done.main(new String[]{});
          
                 
                 break;
@@ -263,7 +263,7 @@ while(true){
       status = (stock == 0)  ?"NOT AVAILABLE":"AVAILABLE";
         
       
-        String sql = "INSERT INTO PRODUCT_DETAILS ( NAME, PRICE, STOCK, STATUS) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO PRODUCT_DETAILS ( p_name, p_price, p_stock, p_status) VALUES (?, ?, ?, ?)";
 
         
         conf.addRecord(sql, name, price, stock, status);
@@ -328,13 +328,13 @@ while(true){
           
 
           
-        while(del.getSingleValue("SELECT ID FROM PRODUCT_DETAILS WHERE ID = ? ", id) == 0){
+        while(del.getSingleValue("SELECT p_id FROM PRODUCT_DETAILS WHERE p_id = ? ", id) == 0){
             System.out.print("ID doesn't exist \n Try Again: ");
             id = in.nextInt();
             
         }
         
-          String deleteSQL = "DELETE FROM PRODUCT_DETAILS WHERE ID = ?";
+          String deleteSQL = "DELETE FROM PRODUCT_DETAILS WHERE p_id = ?";
           
           del.deleteRecord(deleteSQL, id);
           
@@ -357,7 +357,7 @@ while(true){
       config conf = new config();
     String test = "SELECT * FROM PRODUCT_DETAILS";
                 String[] headers = {"ID", "NAME", "PRICE", "STOCK", "STATUS"};
-                String[] Columns = {"ID", "NAME", "PRICE", "STOCK","STATUS"};
+                String[] Columns = {"p_id", "p_name", "p_price", "p_stock","p_status"};
 
     conf.viewRecords(test, headers, Columns);
     
@@ -400,7 +400,7 @@ String status = null;
                }
         
           
-           while(conf.getSingleValue("SELECT ID FROM PRODUCT_DETAILS WHERE ID = ? ", id)==0){
+           while(conf.getSingleValue("SELECT p_id FROM PRODUCT_DETAILS WHERE p_id = ? ", id)==0){
                System.out.print("ID doesn't exist\n TRY AGAIN: ");
                id = in.nextInt();
                in.nextLine();
@@ -464,7 +464,7 @@ String status = null;
         }
                 
                      }
-                String namesql = "UPDATE PRODUCT_DETAILS SET NAME = ? WHERE ID = ?";
+                String namesql = "UPDATE PRODUCT_DETAILS SET p_name = ? WHERE p_id = ?";
                 nameconfi.updateRecord(namesql, name, id);
                 
                      
@@ -516,7 +516,7 @@ String status = null;
                 }
                        
                 
-                String pricesql = "UPDATE PRODUCT_DETAILS SET PRICE = ? WHERE ID = ?";
+                String pricesql = "UPDATE PRODUCT_DETAILS SET p_price = ? WHERE p_id = ?";
                 priceconfi.updateRecord(pricesql, price, id);
                 
                 break;
@@ -548,7 +548,7 @@ String status = null;
                 
                  status = (stock == 0)  ?"NOT AVAILABLE":"AVAILABLE";
                  
-                String stocksql = "UPDATE PRODUCT_DETAILS SET STOCK = ?, STATUS = ? WHERE ID = ?";
+                String stocksql = "UPDATE PRODUCT_DETAILS SET p_stock = ?, p_status = ? WHERE p_id = ?";
                 stockconfi.updateRecord(stocksql, stock, status, id);
                 
                 break;

@@ -82,7 +82,7 @@ public void addRecord(String sql, Object... values) {
             StringBuilder headerLine = new StringBuilder();
             headerLine.append("----------------------------------------------------------------------------------------------------------------------------\n| ");
             for (String header : columnHeaders) {
-                headerLine.append(String.format("%-20s | ", header)); // Adjust formatting as needed
+                headerLine.append(String.format("%-30s | ", header)); // Adjust formatting as needed
             }
             headerLine.append("\n----------------------------------------------------------------------------------------------------------------------------");
 
@@ -93,7 +93,7 @@ public void addRecord(String sql, Object... values) {
                 StringBuilder row = new StringBuilder("| ");
                 for (String colName : columnNames) {
                     String value = rs.getString(colName);
-                    row.append(String.format("%-20s | ", value != null ? value : "")); // Adjust formatting
+                    row.append(String.format("%-30s | ", value != null ? value : "")); // Adjust formatting
                 }
                 System.out.println(row.toString());
             }

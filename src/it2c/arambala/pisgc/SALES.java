@@ -131,6 +131,7 @@ int id = 0;
  double stock = 0;
  double quan = 0;
  double updatequan = 0;
+ config view = new config();
  String priceqry = null, stockqry = null, quantityqry = null, updatesql = null;
   System.out.println("|| SELECT CUSTOMER ID ||");
    
@@ -176,12 +177,17 @@ int id = 0;
         }
             
             System.out.println("|| SELECT PRODUCT ID ||");
-            prod.viewprod();
+        
+    String test = "SELECT * FROM PRODUCT_DETAILS WHERE p_status = 'AVAILABLE' ";
+                String[] headers = {"ID", "NAME", "PRICE", "STOCK", "STATUS"};
+                String[] Columns = {"p_id", "p_name", "p_price", "p_stock","p_status"};
+
+    view.viewRecords(test, headers, Columns);
             
             System.out.print("Enter the ID of the Product: ");
            pid = in.nextInt();
            
-              stockqry = "SELECT STOCK FROM PRODUCT_DETAILS WHERE ID = ?";
+              stockqry = "SELECT p_stock FROM PRODUCT_DETAILS WHERE p_id = ?";
             stock = conf.getSingleValue(stockqry, pid);
            
             while(stock == 0 ){
@@ -194,7 +200,7 @@ int id = 0;
             
      
             
-             while(conf.getSingleValue("SELECT ID FROM PRODUCT_DETAILS WHERE ID = ? ", pid) == 0){
+             while(conf.getSingleValue("SELECT p_id FROM PRODUCT_DETAILS WHERE p_id = ? ", pid) == 0){
             
                 
                 
@@ -218,14 +224,14 @@ int id = 0;
              
              updatequan = stock - quantity;
              
-             updatesql = "UPDATE PRODUCT_DETAILS SET STOCK = ? WHERE ID = ?";
+             updatesql = "UPDATE PRODUCT_DETAILS SET p_stock = ? WHERE p_id = ?";
              updateconfi.updateRecord(updatesql, updatequan, pid);
              
 //             String stocksql = "UPDATE PRODUCT_DETAILS SET STOCK = ?, STATUS = ? WHERE ID = ?";
 //                stockconfi.updateRecord(stocksql, stock, id, status);
 //             
              
-             priceqry = "SELECT PRICE FROM PRODUCT_DETAILS WHERE ID = ?";
+           priceqry = "SELECT p_price FROM PRODUCT_DETAILS WHERE p_id = ?";
             price = conf.getSingleValue(priceqry, pid);
             total = price * quantity;
             
@@ -265,6 +271,30 @@ int id = 0;
         System.out.println("||VIEW SALES ORDERS||");
         
         String sql = "SELECT * FROM PROCESS_DETAILS";
+        String[] header = {"PROCESS ID","CUSTOMER ID","PRODUCT ID","QUANTITY",""
+                + ""};
+        String[] colom  = {"t_id","c_id","p_id","t_quantity","t_totalam","t_cash","t_change","t_status","t_date"};     
      
+    }
+    
+    public void deleteprocess(){
+        config conf = new config();
+        Scanner in = new Scanner(System.in);
+          
+         
+        
+        System.out.println("||DELETE ORDER SALES||");
+        
+        String sql = "SELECT * FROM PROCESS_DETAILS";
+        String[] header = {"PROCESS ID","CUSTOMER ID","PRODUCT ID","QUANTITY","TOTAL AMOUNT","CASH","CHANGE","STATUS","DATE"};
+                
+        String[] colom  = {"t_id","c_id","p_id","t_quantity","t_totalam","t_cash","t_change","t_status","t_date"};     
+        
+        
+     
+        
+conf.viewRecords(sql, header, colom);
+        
+        
     }
 }

@@ -21,13 +21,14 @@ public class IT2CARAMBALAPISGC {
   
   do{
       
-  
-        System.out.println("\nPRODUCT INVENTORY TRANSACTION GENERATION (CONVENIENCE STORE)");
-        System.out.println("1. PRODUCT");
-        System.out.println("2. CUSTOMER");
-        System.out.println("3. SALES ORDER");
-        System.out.println("4. EXIT");
-        
+        System.out.println("****************************************************************|");
+        System.out.println("PRODUCT INVENTORY TRANSACTION GENERATION (CONVENIENCE STORE)  \t|");
+        System.out.println("****************************************************************|");
+        System.out.println("|1. PRODUCT\t|                                               |");
+        System.out.println("|2. CUSTOMER\t|                                               |");
+        System.out.println("|3. SALES ORDER\t|                                               |");
+        System.out.println("|4. EXIT\t|                                               |");
+        System.out.println("----------------------------------------------------------------|");
          while(true){
             System.out.print("INPUT: ");
              input = in.nextLine().trim();
