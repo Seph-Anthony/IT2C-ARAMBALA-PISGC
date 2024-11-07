@@ -317,41 +317,33 @@ conf.viewRecords(sql, header, colom);
         String another = null;
         String customerinput = null;
         int action = 0;
+        int customerId = 0;
         
         do{
             
-            while(true){
-        System.out.print("Enter the ID of the Customer to Update: ");
-        customerinput = in.nextLine().trim();
-        
-        try{
-            action = Integer.parseInt(customerinput);
-            
-            if(action>=0){
-                
-                break;
-                
+           while (true) {
+            System.out.print("Enter the ID of the Customer to Update: ");
+            String customerInput = in.nextLine().trim();
+
+            try {
+                customerId = Integer.parseInt(customerInput);
+                if (customerId >= 0) {
+                    
+                    if (conf.getSingleValue("SELECT c_id FROM CUSTOMER_DETAILS WHERE c_id = ?", customerId) != 0) {
+                        break; 
+                    } else {
+                        System.out.println("ID doesn't exist. Try Again.");
+                    }
+                } else {
+                    System.out.println("Number Invalid Input");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a valid number.");
             }
-            else{
-                
-                System.out.println("Number Invalid Input");
-            }
-            
         }
-        
-        catch(NumberFormatException e){
-            
-        }
-        
-        
-            }
+
       
-        while(conf.getSingleValue("SELECT c_id FROM CUSTOMER_DETAILS WHERE c_id = ? ", action) == 0){
-            
-            System.out.print("ID doesn't exist \n Try Again: ");
-            action = in.nextInt();
-            
-        }
+   
         
    
         while(true){
@@ -459,33 +451,27 @@ conf.viewRecords(sql, header, colom);
         System.out.println("||DELETE CUSTOMER||");
         do{
             custom.viewcustomer();
-            while(true){
-            System.out.print("Enter the ID of the Customer: ");
-         delete = in.nextLine().trim();
-         
-         try {
-             
-             id = Integer.parseInt(delete);
-             if(id>= 0){
-              break;   
-             }
-             
-             else{
-                 System.out.println("Number Input Invalid");
-                 
-             }
-         }
-         catch(NumberFormatException e){
-             System.out.println("Invalid Input");
-             
-         }
-         
+          
+             while (true) {
+            System.out.print("Enter the ID of the Customer to Delete: ");
+            String customerInput = in.nextLine().trim();
+
+            try {
+                id = Integer.parseInt(customerInput);
+                if (id >= 0) {
+                    
+                    if (conf.getSingleValue("SELECT c_id FROM CUSTOMER_DETAILS WHERE c_id = ?", id) != 0) {
+                        break; 
+                    } else {
+                        System.out.println("ID doesn't exist. Try Again.");
+                    }
+                } else {
+                    System.out.println("Number Invalid Input");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a valid number.");
             }
-         while(conf.getSingleValue("SELECT c_id FROM CUSTOMER_DETAILS WHERE c_id = ? ", id)==0){
-             System.out.println("ID doesn't exist\n Try Again: ");
-             id=in.nextInt();
-             
-         }
+        }
          
          
                String deleteSQL = "DELETE FROM CUSTOMER_DETAILS WHERE c_id = ?";

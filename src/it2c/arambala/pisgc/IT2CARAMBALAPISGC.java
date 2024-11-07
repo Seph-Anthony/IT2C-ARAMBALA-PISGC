@@ -14,6 +14,7 @@ public class IT2CARAMBALAPISGC {
   PRODUCT inven = new PRODUCT();
   CUSTOMER cus = new CUSTOMER ();
   SALES sal = new SALES();
+  REPORTS report = new REPORTS();
     String another = null;
    String input = null;
     int action = 0;
@@ -27,7 +28,8 @@ public class IT2CARAMBALAPISGC {
         System.out.println("|1. PRODUCT\t|                                               |");
         System.out.println("|2. CUSTOMER\t|                                               |");
         System.out.println("|3. SALES ORDER\t|                                               |");
-        System.out.println("|4. EXIT\t|                                               |");
+        System.out.println("|4. REPORTS\t|                                               |");
+        System.out.println("|5. EXIT\t|                                               |");
         System.out.println("----------------------------------------------------------------|");
          while(true){
             System.out.print("INPUT: ");
@@ -79,8 +81,10 @@ public class IT2CARAMBALAPISGC {
                 sal.salesprocess();
                 break;
                 
-                
             case 4:
+                report.reportinfo();
+                break;
+            case 5:
                 System.out.print(" DO YOU REALLY WISH TO EXIT(yes|no):  ");
                 String choice=in.next();
                 

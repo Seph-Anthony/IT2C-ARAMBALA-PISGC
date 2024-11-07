@@ -26,10 +26,9 @@ public class SALES {
         do{
         System.out.println("___________________________");
         System.out.println("||SALES ORDER\t||");
-        System.out.println("|1. ADD SALES\t||");
-        System.out.println("|2. VIEW SALES\t||");
-        System.out.println("|3. UPDATE SALES||");
-        System.out.println("|4. DELETE SALES||");
+        System.out.println("|1.ADD SALES\t||");
+        System.out.println("|2.VIEW SALES\t||");
+        System.out.println("|3.DELETE SALES ||");
         System.out.println("___________________________");
         while(true){
             System.out.print("INPUT: ");
@@ -45,7 +44,7 @@ public class SALES {
             try{
                 
                 action = Integer.parseInt(input);
-                if(action>=1 && action <=4){
+                if(action>=1 && action <=3){
                     
                     break;
                 }
@@ -83,13 +82,10 @@ public class SALES {
                 break;
                 
             case 3:
-                
+                sal.deleteprocess();
                 break;
                 
-            case 4:
-                
-                break;
-            
+           
             
         
     }
@@ -131,50 +127,38 @@ int id = 0;
  double stock = 0;
  double quan = 0;
  double updatequan = 0;
+ String another = null;
+ 
+ 
  config view = new config();
  String priceqry = null, stockqry = null, quantityqry = null, updatesql = null;
+ 
+ do{
   System.out.println("|| SELECT CUSTOMER ID ||");
    
  cus.viewcustomer();
  
- while(true){
-        System.out.print("Enter the ID of the Customer: ");
-           idcus = in.nextLine().trim();
-           
-           try{
-               id = Integer.parseInt(idcus);
-               
-               if(id>=0){
-                   break;
-                   
-               }
-               
-               else{
-                   System.out.println("Number Input is Invalid"); 
-                   
-               }
-               
-               
-           }
-           catch(NumberFormatException e){
-               System.out.println("Invalid Input");
-               
-           }
-  
-        
-        
- }
-        
-            
-            while(conf.getSingleValue("SELECT c_id FROM CUSTOMER_DETAILS WHERE c_id = ? ", id) == 0){
-            
-                
-                
-            System.out.print("ID doesn't exist \n Try Again: ");
-            cusid = in.nextInt();
-            in.nextLine();
-            
+ while (true) {
+            System.out.print("Enter the ID of the Customer: ");
+            String customerInput = in.nextLine().trim();
+
+            try {
+                id = Integer.parseInt(customerInput);
+                if (id >= 0) {
+                    
+                    if (conf.getSingleValue("SELECT c_id FROM CUSTOMER_DETAILS WHERE c_id = ?", id) != 0) {
+                        break; 
+                    } else {
+                        System.out.println("ID doesn't exist. Try Again.");
+                    }
+                } else {
+                    System.out.println("Number Invalid Input");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a valid number.");
+            }
         }
+
             
             System.out.println("|| SELECT PRODUCT ID ||");
         
@@ -261,6 +245,21 @@ int id = 0;
            conf.addRecord(ordersql,id, pid,quantity, total, gcash, change, status, date );
         
         
+           
+           
+          System.out.print("\nWould you like to input another(Yes|No): ");
+    another = in.nextLine();
+    
+    while(!another.equalsIgnoreCase("yes") && !another.equalsIgnoreCase("YES") && !another.equalsIgnoreCase("Yes") &&
+            !another.equalsIgnoreCase("No") && !another.equalsIgnoreCase("no") && !another.equalsIgnoreCase("NO") ){
+     
+        another=in.nextLine();
+        
+        
+    }
+    
+ }while(another.equals("yes") || another.equals("YES") || another.equals("Yes"));
+           
         
 }
     
@@ -270,31 +269,68 @@ int id = 0;
         Scanner in = new Scanner(System.in);
         System.out.println("||VIEW SALES ORDERS||");
         
-        String sql = "SELECT * FROM PROCESS_DETAILS";
-        String[] header = {"PROCESS ID","CUSTOMER ID","PRODUCT ID","QUANTITY",""
-                + ""};
-        String[] colom  = {"t_id","c_id","p_id","t_quantity","t_totalam","t_cash","t_change","t_status","t_date"};     
-     
+        String sql = "SELECT t_id,c_fname, c_lname, p_name, t_totalam, t_status, t_date  FROM PROCESS_DETAILS "
+                + "LEFT JOIN CUSTOMER_DETAILS ON CUSTOMER_DETAILS.c_id = PROCESS_DETAILS.c_id "
+                + "LEFT JOIN PRODUCT_DETAILS ON PRODUCT_DETAILS.p_id = PROCESS_DETAILS.p_id";
+        String[] header = {"PROCESS ID","CUSTOMER FIRST NAME","CUSTOMER LASTNAME","PRODUCT NAME","TOTAL AMOUNT","STATUS","DATE"};
+               
+        String[] colom  = {"t_id","c_fname","c_lname","p_name","t_totalam","t_status","t_date"};     
+     conf.viewRecords (sql, header, colom);
     }
     
     public void deleteprocess(){
         config conf = new config();
         Scanner in = new Scanner(System.in);
+          SALES view = new SALES();
+          String another = null;
+          String idcus =null;
+          int id =0;
           
-         
-        
-        System.out.println("||DELETE ORDER SALES||");
-        
-        String sql = "SELECT * FROM PROCESS_DETAILS";
-        String[] header = {"PROCESS ID","CUSTOMER ID","PRODUCT ID","QUANTITY","TOTAL AMOUNT","CASH","CHANGE","STATUS","DATE"};
-                
-        String[] colom  = {"t_id","c_id","p_id","t_quantity","t_totalam","t_cash","t_change","t_status","t_date"};     
-        
-        
+          do{
+          view.viewprocess();
+              System.out.println("||DELETE PROCESS||");
+              
+           while (true) {
+            System.out.print("Enter the ID of the Customer to Update: ");
+            String customerInput = in.nextLine().trim();
+
+            try {
+                id = Integer.parseInt(customerInput);
+                if (id >= 0) {
+                    
+                    if (conf.getSingleValue("SELECT t_id FROM PROCESS_DETAILS WHERE t_id = ?",id) != 0) {
+                        break; 
+                    } else {
+                        System.out.println("ID doesn't exist. Try Again.");
+                    }
+                } else {
+                    System.out.println("Number Invalid Input");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a valid number.");
+            }
+        }
+
+             
+             
+              
+    
      
+          System.out.print("\nWould you like to input another(Yes|No): ");
+    another = in.nextLine();
+    
+    while(!another.equalsIgnoreCase("yes") && !another.equalsIgnoreCase("YES") && !another.equalsIgnoreCase("Yes") &&
+            !another.equalsIgnoreCase("No") && !another.equalsIgnoreCase("no") && !another.equalsIgnoreCase("NO") ){
         
-conf.viewRecords(sql, header, colom);
+        another=in.nextLine();
         
         
     }
+
+          }while(another.equals("YES") || another.equals("Yes")|| another.equals("yes"));
+          
+        
+    }
+    
+    
 }

@@ -301,38 +301,27 @@ while(true){
                  prod.viewprod();
           System.out.println("||DELETE PRODUCT||");
           
-          while(true){
-          System.out.print("Enter the ID you want to delete: ");
-        idinput = in.nextLine().trim();
-        
-        try{
-            id = Integer.parseInt(idinput);
-            if(id>=0){
-                
-                break;
-            }
-            else{
-                
-                
-                System.out.println("Number Input Invalid");
-            }
-            
-            
-        }
-        catch(NumberFormatException e){
-            System.out.println("Invalid Input");
-            
-        }
-          
-          }
-          
+while (true) {
+            System.out.print("Enter the ID of the Customer to Delete: ");
+            String customerInput = in.nextLine().trim();
 
-          
-        while(del.getSingleValue("SELECT p_id FROM PRODUCT_DETAILS WHERE p_id = ? ", id) == 0){
-            System.out.print("ID doesn't exist \n Try Again: ");
-            id = in.nextInt();
-            
+            try {
+                id = Integer.parseInt(customerInput);
+                if (id >= 0) {
+                    
+                    if (del.getSingleValue("SELECT p_id FROM PRODUCT_DETAILS WHERE p_id = ?", id) != 0) {
+                        break; 
+                    } else {
+                        System.out.println("ID doesn't exist. Try Again.");
+                    }
+                } else {
+                    System.out.println("Number Invalid Input");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a valid number.");
+            }
         }
+
         
           String deleteSQL = "DELETE FROM PRODUCT_DETAILS WHERE p_id = ?";
           
@@ -378,34 +367,27 @@ String status = null;
   
        do {
                prod.viewprod();
-               while(true){
-          System.out.print("Enter the ID you want to Update: ");
-          idinput = in.nextLine().trim();
-     try{
-         id = Integer.parseInt(idinput);
-         if(action>=0){
-             break;
-         }
-         else{
-             
-             System.out.println("Number Input Invalid");
-         }
-         
-     }
-     catch(NumberFormatException e){
-         System.out.println("Invalid Iput");
-     }
-          
-          
-               }
-        
-          
-           while(conf.getSingleValue("SELECT p_id FROM PRODUCT_DETAILS WHERE p_id = ? ", id)==0){
-               System.out.print("ID doesn't exist\n TRY AGAIN: ");
-               id = in.nextInt();
-               in.nextLine();
-              
-          }
+               while (true) {
+            System.out.print("Enter the ID of the Customer to Update: ");
+            String customerInput = in.nextLine().trim();
+
+            try {
+                id = Integer.parseInt(customerInput);
+                if (id >= 0) {
+                    
+                    if (conf.getSingleValue("SELECT p_id FROM PRODUCT_DETAILS WHERE p_id = ?", id) != 0) {
+                        break; 
+                    } else {
+                        System.out.println("ID doesn't exist. Try Again.");
+                    }
+                } else {
+                    System.out.println("Number Invalid Input");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a valid number.");
+            }
+        }
+
           System.out.println("INPUT UPDATE");
           System.out.println("____________");
           System.out.println("1. NEW PRODUCT NAME");
