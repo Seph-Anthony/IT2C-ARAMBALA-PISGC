@@ -167,10 +167,31 @@ int id = 0;
                 String[] Columns = {"p_id", "p_name", "p_price", "p_stock","p_status"};
 
     view.viewRecords(test, headers, Columns);
-            
+            while(true){
             System.out.print("Enter the ID of the Product: ");
-           pid = in.nextInt();
-           
+            String productinput = in.nextLine().trim();
+            
+            try{
+                pid = Integer.parseInt(productinput);
+                
+                if(pid>=0){
+                    if(conf.getSingleValue("SELECT p_id FROM PRODUCT_DETAILS WHERE p_id = ?", pid) != 0){
+                    break;
+                } 
+                    else{
+                        System.out.println("ID doesn't Exist");
+                        
+                        }
+                }else{
+                    System.out.println("Invalid Input. Please enter a valid number.");
+                }
+            }
+            catch(NumberFormatException e){
+//           
+           System.out.println("Invalid Input. Please enter a valid number.");
+            }
+            }
+//       
               stockqry = "SELECT p_stock FROM PRODUCT_DETAILS WHERE p_id = ?";
             stock = conf.getSingleValue(stockqry, pid);
            
@@ -190,21 +211,26 @@ int id = 0;
                 
             System.out.print("ID doesn't exist \n Try Again: ");
             cusid = in.nextInt();
-            
+           
         }
              
               
-             while(true){
-             System.out.print("Enter the quantity of the Product: ");
-             quantity = in.nextDouble();
+           while (true) {
+            System.out.print("Enter the quantity of the Product: ");
+            String quantityInput = in.nextLine().trim();
+
+            try {
             
-               if (quantity > stock) {
-            System.out.print("PRODUCT QUANTITY EXCEEDS THE PRODUCT STOCK QUANTITY  \n");
-        } else {
-            break; 
+                quantity = Double.parseDouble(quantityInput);
+                if (quantity > 0 && quantity <= stock) {
+                    break; // Valid input
+                } else {
+                    System.out.println("Quantity must be a positive number and cannot exceed available stock (" + stock + ").");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid quantity. Please enter a valid number.");
+            } 
         }
-             
-             }
              
              updatequan = stock - quantity;
              
@@ -223,16 +249,21 @@ int id = 0;
             System.out.print("Total Amount: "+total);
             System.out.println("\n________________________________");
             
+                    while (true) {
             System.out.print("\nEnter the Cash: ");
-             gcash = in.nextDouble();
-        
-            while(gcash<total){
-                
-                System.out.print("Insufficient Cash Amount\n Try Again: ");
-                gcash = in.nextDouble();
+            String cashInput = in.nextLine().trim();
+            try {
+               gcash = Double.parseDouble(cashInput);
+                if (gcash >= total) {
+                    break; // Valid input
+                } else {
+                    System.out.println("Insufficient Cash Amount. Please enter a valid amount.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input. Please enter a valid number");   
             }
-         
-            
+            }
+
             change = gcash - total;
             
          LocalDate currdate = LocalDate.now();

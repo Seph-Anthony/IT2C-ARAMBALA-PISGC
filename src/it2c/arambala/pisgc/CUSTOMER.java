@@ -225,10 +225,11 @@ custom.updatecustomer();
                     contact=in.nextLine().trim();
                     
                     if(!contact.equals("")){
-                    if(contact.matches("\\d+")){
+                    if(contact.matches("\\d+" )){
     break;
     
 }
+                    
                     else {
                         System.out.println("Should only contain numberic values");   
                     }
@@ -381,7 +382,7 @@ conf.viewRecords(sql, header, colom);
         
    while(true){
                  
-                     System.out.printf(" Enter the New Customer Email: ");
+                     System.out.printf("Enter the New Customer Email: ");
     email = in.nextLine().trim();
     
    
