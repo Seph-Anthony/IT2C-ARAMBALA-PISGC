@@ -89,7 +89,7 @@ PRODUCT prod = new PRODUCT();
                 
             case 3:
                 
-//                System.out.println("||WELCOME TO UPDATE PRODUCT||");
+
                 
                   
                       prod.updateprod();
@@ -194,18 +194,6 @@ String status = null;
         }
      
 
-//        
-//        if (!password.matches(".*\\d.*")) {
-//            System.out.println("Password must have a number");
-//            return false;
-
-//while(!in.hasNextInt()){
-//            System.out.println("Character is Invalid: ");
-//            System.out.print("Enter a choice: ");
-//            in.nextLine();
-//            
-//        }
-//  int action = in.nextInt();
 
 
 while (true) {
@@ -450,23 +438,7 @@ String status = null;
                 nameconfi.updateRecord(namesql, name, id);
                 
                      
-//        while(true){
-//        System.out.print("PRODUCT NAME: ");
-//         name = in.nextLine().trim();
-//      
-//        if(!name.equals("")){
-//           if(name.matches("^[a-z A-Z]+$")){
-//           break;
-//        }
-//        else {
-//            System.out.println("Product name should only contain characters");
-//        }
-//        }
-//        else{
-//            System.out.println("Product name cannot be empty. ");
-//        }
-//        }
-     
+
                 
                 break;
                 

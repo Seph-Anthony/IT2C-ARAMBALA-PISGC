@@ -22,7 +22,6 @@ public class REPORTS {
         CUSTOMER cus = new CUSTOMER();
         int customerId = 0;
 
-        // Prompt for customer ID
         
         String test = "SELECT * FROM CUSTOMER_DETAILS";
                 String[] headers = {"ID", "NAME", "LAST NAME"};
@@ -36,7 +35,7 @@ public class REPORTS {
             try {
                 customerId = Integer.parseInt(input);
                 if (customerId > 0) {
-                    break; // Valid input
+                    break; 
                 } else {
                     System.out.println("Customer ID must be a positive integer.");
                 }
@@ -45,9 +44,9 @@ public class REPORTS {
             }
         }
 
-        // Fetch customer information based on customer ID
+        
         String customerQuery = "SELECT c_fname, c_lname, c_email, c_contact FROM CUSTOMER_DETAILS WHERE c_id = ?";
-        String[] customerInfo = new String[4]; // To hold customer info
+        String[] customerInfo = new String[4]; 
 
         try (Connection conn = conf.connectDB();
              PreparedStatement pstmt = conn.prepareStatement(customerQuery)) {
@@ -61,14 +60,14 @@ public class REPORTS {
                 customerInfo[3] = rs.getString("c_contact");
             } else {
                 System.out.println("No customer found for the given Customer ID.");
-                return; // Exit if no customer found
+                return; 
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving customer information: " + e.getMessage());
-            return; // Exit on error
+            return; 
         }
 
-        // Fetch all order details for the customer
+        
         String orderQuery = "SELECT p_name, t_quantity, t_totalam, t_date FROM PROCESS_DETAILS " +
                             "JOIN PRODUCT_DETAILS ON PROCESS_DETAILS.p_id = PRODUCT_DETAILS.p_id " +
                             "WHERE PROCESS_DETAILS.c_id = ?";
@@ -84,13 +83,13 @@ public class REPORTS {
             pstmt.setInt(1, customerId);
             ResultSet rs = pstmt.executeQuery();
 
-            // Print header for order details
+        
             System.out.printf("%-30s %-10s %-10s %-10s\n", "Product Name", "Quantity", "Total", "Date");
             System.out.println("-------------------------------------------------------------");
 
-            boolean hasOrders = false; // Flag to check if the customer has any orders
+            boolean hasOrders = false; 
             while (rs.next()) {
-                hasOrders = true; // Set flag to true if at least one order is found
+                hasOrders = true; 
                 String productName = rs.getString("p_name");
                 int quantity = rs.getInt("t_quantity");
                 double totalAmount = rs.getDouble("t_totalam");

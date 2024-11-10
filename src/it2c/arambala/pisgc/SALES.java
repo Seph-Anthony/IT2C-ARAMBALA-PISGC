@@ -187,11 +187,11 @@ int id = 0;
                 }
             }
             catch(NumberFormatException e){
-//           
+          
            System.out.println("Invalid Input. Please enter a valid number.");
             }
             }
-//       
+      
               stockqry = "SELECT p_stock FROM PRODUCT_DETAILS WHERE p_id = ?";
             stock = conf.getSingleValue(stockqry, pid);
            
@@ -223,7 +223,7 @@ int id = 0;
             
                 quantity = Double.parseDouble(quantityInput);
                 if (quantity > 0 && quantity <= stock) {
-                    break; // Valid input
+                    break; 
                 } else {
                     System.out.println("Quantity must be a positive number and cannot exceed available stock (" + stock + ").");
                 }
@@ -255,7 +255,7 @@ int id = 0;
             try {
                gcash = Double.parseDouble(cashInput);
                 if (gcash >= total) {
-                    break; // Valid input
+                    break; 
                 } else {
                     System.out.println("Insufficient Cash Amount. Please enter a valid amount.");
                 }

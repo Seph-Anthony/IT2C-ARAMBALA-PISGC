@@ -264,41 +264,7 @@ custom.updatecustomer();
         config conf = new config();
         Scanner in = new Scanner(System.in);
         System.out.println("||VIEW CUSTOMER||");
-        
-//        System.out.println("1. VIEW ONLY ID\t");
-//        System.out.println("2. VIEW ONLY CUSTOMER NAME\t");
-//        System.out.println("3. VIEW ONLY EMAIL");
-//        System.out.println("4. VIEW ONLY CONTACT");
-//        System.out.println("5. VIEW ALL");
-//        System.out.println("Select choice: ");
-//        while(!in.hasNextInt()){
-//            System.out.print("!Character is Invalid!");
-//            System.out.print("Enter again: ");
-//            in.nextLine();
-//        }
-//        int choice = in.nextInt();
-//        in.nextLine();
-//        
-//        switch(choice){
-//        
-//            case 1:
-//        String sql ="SELECT c_id FROM CUSTOMER_DETAILS";
-//        
-//        String[] header = {"CUSTOMER ID"};
-//        String[] colom = {"c_id"};
-//        
-//        conf.viewRecords(sql, header, colom);
-//        break;
-//        
-//            case 2:
-//                
-//                String sql2 = "SELECT * FROM CUSTOMER_DETAILS";
-//                String[] headerr = {"CUSTOMER FIRST NAME","CUSTOMER LAST NAME"};
-//        String[] colomm = {"c_fname","c_fname"};
-//        
-//               conf.viewRecords(sql2, headerr, colomm);
-//                break;
-    
+
         
         String sql = "SELECT * FROM CUSTOMER_DETAILS";
         String[] header = {"CUSTOMER ID","CUSTOMER FIRST NAME","CUSTOMER LAST NAME","CUSTOMER EMAIL","CUSTOMER CONTACT NO."};

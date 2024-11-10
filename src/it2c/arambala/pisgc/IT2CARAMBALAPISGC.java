@@ -45,7 +45,7 @@ public class IT2CARAMBALAPISGC {
             try{
                 
                 action = Integer.parseInt(input);
-                if(action>=1 && action <=4){
+                if(action>=1 && action <=5){
                     
                     break;
                 }
