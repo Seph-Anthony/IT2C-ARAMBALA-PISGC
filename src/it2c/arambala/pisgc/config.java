@@ -225,6 +225,10 @@ public void deleteRecord(String sql, Object... values) {
         return result;
     }
 
+    void viewRecords(String sql, String[] header, String[] columns, String format, String valueOf) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 

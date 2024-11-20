@@ -29,7 +29,7 @@ PRODUCT prod = new PRODUCT();
         System.out.println("|2. VIEW PRODUCT \t|");
         System.out.println("|3. UPDATE PRODUCT\t|");
         System.out.println("|4. DELETE PRODUCT\t|");
-        System.out.println("|5. EXIT PRODUCT\t|");
+        System.out.println("|5. BACK    \t|");
         System.out.println("___________________________");
           while(true){
             System.out.print("INPUT: ");

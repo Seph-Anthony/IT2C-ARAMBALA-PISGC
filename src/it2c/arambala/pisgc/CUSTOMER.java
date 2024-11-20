@@ -26,7 +26,7 @@ public class CUSTOMER {
         System.out.println("|2. VIEW CUSTOMER \t|");
         System.out.println("|3. UPDATE CUSTOMER\t|");
         System.out.println("|4. DELETE CUSTOMER\t|");
-        System.out.println("|5. EXIT \t\t|");
+        System.out.println("|5. BACK \t\t|");
         System.out.println("___________________________");
      while(true){
             System.out.print("INPUT: ");

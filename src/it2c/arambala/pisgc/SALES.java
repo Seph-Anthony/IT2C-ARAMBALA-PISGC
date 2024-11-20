@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class SALES {
     
     public void salesprocess(){
-        
+        IT2CARAMBALAPISGC deal = new IT2CARAMBALAPISGC();
     SALES sal = new SALES();
         Scanner in = new Scanner(System.in);
         String another = null;
@@ -29,6 +29,7 @@ public class SALES {
         System.out.println("|1.ADD SALES\t||");
         System.out.println("|2.VIEW SALES\t||");
         System.out.println("|3.DELETE SALES ||");
+         System.out.println("|4.BACK         ||");   
         System.out.println("___________________________");
         while(true){
             System.out.print("INPUT: ");
@@ -83,6 +84,10 @@ public class SALES {
                 
             case 3:
                 sal.deleteprocess();
+                break;
+                
+            case 4:
+                deal.main(new String[]{});
                 break;
                 
            
@@ -307,6 +312,9 @@ int id = 0;
                
         String[] colom  = {"t_id","c_fname","c_lname","p_name","t_totalam","t_status","t_date"};     
      conf.viewRecords (sql, header, colom);
+     
+     
+       
     }
     
     public void deleteprocess(){
@@ -362,6 +370,7 @@ int id = 0;
           
         
     }
+   
     
     
 }
