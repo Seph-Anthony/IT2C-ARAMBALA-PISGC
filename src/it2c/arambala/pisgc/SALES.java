@@ -45,7 +45,7 @@ public class SALES {
             try{
                 
                 action = Integer.parseInt(input);
-                if(action>=1 && action <=3){
+                if(action>=1 && action <=4){
                     
                     break;
                 }
@@ -270,7 +270,7 @@ int id = 0;
             }
 
             change = gcash - total;
-            
+            System.out.print("CHANGE: "+change+"\n");
          LocalDate currdate = LocalDate.now();
          DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
          date = currdate.format(format);
@@ -339,13 +339,13 @@ public void viewprocess() {
     // Switch to handle logic based on user choice
     switch (date) {
         case 1:
-            // Case 1: View all sales records
+            
             String sql = "SELECT t_id, c_fname, c_lname, p_name, t_totalam, t_status, t_date, t_month FROM PROCESS_DETAILS "
                     + "LEFT JOIN CUSTOMER_DETAILS ON CUSTOMER_DETAILS.c_id = PROCESS_DETAILS.c_id "
                     + "LEFT JOIN PRODUCT_DETAILS ON PRODUCT_DETAILS.p_id = PROCESS_DETAILS.p_id";
             String[] header = {"PROCESS ID", "CUSTOMER FIRST NAME", "CUSTOMER LASTNAME", "PRODUCT NAME", "TOTAL AMOUNT", "STATUS", "DATE", "MONTH"};
             String[] columns = {"t_id", "c_fname", "c_lname", "p_name", "t_totalam", "t_status", "t_date", "t_month"};
-            conf.viewRecords(sql, header, columns);  // View all sales
+            conf.viewRecords(sql, header, columns);  
             break;
 
         case 2:
@@ -407,7 +407,7 @@ private boolean isValidMonth(String month) {
               System.out.println("||DELETE PROCESS||");
               
            while (true) {
-            System.out.print("Enter the ID of the Customer to Update: ");
+            System.out.print("Enter the ID of the Sales you want to delete: ");
             String customerInput = in.nextLine().trim();
 
             try {
@@ -426,7 +426,11 @@ private boolean isValidMonth(String month) {
                 System.out.println("Invalid Input. Please enter a valid number.");
             }
         }
-
+           
+ String deleteSQL = "DELETE FROM PROCESS_DETAILS WHERE t_id = ?";
+          
+          conf.deleteRecord(deleteSQL, id);
+            
              
              
               

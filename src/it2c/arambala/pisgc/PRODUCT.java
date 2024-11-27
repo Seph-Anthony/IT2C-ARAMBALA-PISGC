@@ -29,7 +29,7 @@ PRODUCT prod = new PRODUCT();
         System.out.println("|2. VIEW PRODUCT \t|");
         System.out.println("|3. UPDATE PRODUCT\t|");
         System.out.println("|4. DELETE PRODUCT\t|");
-        System.out.println("|5. BACK    \t|");
+        System.out.println("|5. BACK         \t|");
         System.out.println("___________________________");
           while(true){
             System.out.print("INPUT: ");
@@ -337,6 +337,8 @@ while (true) {
                 String[] Columns = {"p_id", "p_name", "p_price", "p_stock","p_status"};
 
                 String updatesql = "UPDATE PRODUCT_DETAILS SET p_status = 'NOT AVAILABLE' WHERE p_stock = 0";
+                
+                
                 conf.updateRecord(updatesql);
     conf.viewRecords(test, headers, Columns);
     
@@ -354,6 +356,7 @@ String status = null;
   int action = 0;  
   String idinput = null;
   int id = 0;
+
   
        do {
                prod.viewprod();
@@ -436,11 +439,12 @@ String status = null;
         }
                 
                      }
-                      prod.viewprod();
+                     
+                     
                 String namesql = "UPDATE PRODUCT_DETAILS SET p_name = ? WHERE p_id = ?";
                 nameconfi.updateRecord(namesql, name, id);
                 
-                     
+                      prod.viewprod();
 
                 
                 break;
@@ -471,11 +475,11 @@ String status = null;
       
                
                 }
-                       
-                 prod.viewprod();
+                 
+                 
                 String pricesql = "UPDATE PRODUCT_DETAILS SET p_price = ? WHERE p_id = ?";
                 priceconfi.updateRecord(pricesql, price, id);
-                
+                prod.viewprod();
                 break;
                 
             case 3: 
@@ -502,12 +506,17 @@ String status = null;
           
       }
                  }
-                prod.viewprod();
-                 status = (stock == 0)  ?"NOT AVAILABLE":"AVAILABLE";
+         status = (stock == 0)  ?"NOT AVAILABLE":"AVAILABLE";
+                 
+//                 
+//                   String updatestock = "UPDATE PRODUCT_DETAILS SET p_status = 'NOT AVAILABLE' WHERE p_stock = 0";
+                
+                      
+                
                  
                 String stocksql = "UPDATE PRODUCT_DETAILS SET p_stock = ?, p_status = ? WHERE p_id = ?";
                 stockconfi.updateRecord(stocksql, stock, status, id);
-                
+                        prod.viewprod();
                 break;
                   
            
