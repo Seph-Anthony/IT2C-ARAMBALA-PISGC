@@ -336,6 +336,8 @@ while (true) {
                 String[] headers = {"ID", "NAME", "PRICE", "STOCK", "STATUS"};
                 String[] Columns = {"p_id", "p_name", "p_price", "p_stock","p_status"};
 
+                String updatesql = "UPDATE PRODUCT_DETAILS SET p_status = 'NOT AVAILABLE' WHERE p_stock = 0";
+                conf.updateRecord(updatesql);
     conf.viewRecords(test, headers, Columns);
     
 }
@@ -434,6 +436,7 @@ String status = null;
         }
                 
                      }
+                      prod.viewprod();
                 String namesql = "UPDATE PRODUCT_DETAILS SET p_name = ? WHERE p_id = ?";
                 nameconfi.updateRecord(namesql, name, id);
                 
@@ -469,7 +472,7 @@ String status = null;
                
                 }
                        
-                
+                 prod.viewprod();
                 String pricesql = "UPDATE PRODUCT_DETAILS SET p_price = ? WHERE p_id = ?";
                 priceconfi.updateRecord(pricesql, price, id);
                 
@@ -499,7 +502,7 @@ String status = null;
           
       }
                  }
-                
+                prod.viewprod();
                  status = (stock == 0)  ?"NOT AVAILABLE":"AVAILABLE";
                  
                 String stocksql = "UPDATE PRODUCT_DETAILS SET p_stock = ?, p_status = ? WHERE p_id = ?";
@@ -510,6 +513,7 @@ String status = null;
            
                 
         }
+        
         System.out.print("\nUPDATE ANOTHER PRODUCT (Yes|No):");
         another = in.nextLine();
         

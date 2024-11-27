@@ -167,7 +167,7 @@ int id = 0;
             
             System.out.println("|| SELECT PRODUCT ID ||");
         
-    String test = "SELECT * FROM PRODUCT_DETAILS WHERE p_status = 'AVAILABLE' ";
+    String test = "SELECT * FROM PRODUCT_DETAILS WHERE p_status != 0 ";
                 String[] headers = {"ID", "NAME", "PRICE", "STOCK", "STATUS"};
                 String[] Columns = {"p_id", "p_name", "p_price", "p_stock","p_status"};
 
