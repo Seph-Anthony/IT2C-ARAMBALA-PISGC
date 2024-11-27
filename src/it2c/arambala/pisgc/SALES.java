@@ -274,11 +274,14 @@ int id = 0;
          LocalDate currdate = LocalDate.now();
          DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
          date = currdate.format(format);
+       String nowmonth = currdate.getMonth().toString();
+         
+         
          
            status = (total<=gcash)? "COMPLETED":"PENDING";
            
-           String ordersql = "INSERT INTO PROCESS_DETAILS (c_id, p_id , t_quantity , t_totalam , t_cash , t_change , t_status , t_date ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-           conf.addRecord(ordersql,id, pid,quantity, total, gcash, change, status, date );
+           String ordersql = "INSERT INTO PROCESS_DETAILS (c_id, p_id , t_quantity , t_totalam , t_cash , t_change , t_status , t_date, t_month ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+           conf.addRecord(ordersql,id, pid,quantity, total, gcash, change, status, date, nowmonth );
         
         
            
@@ -299,24 +302,98 @@ int id = 0;
         
 }
     
-    public void viewprocess(){
+public void viewprocess() {
+    config conf = new config();
+    Scanner in = new Scanner(System.in);
+    String choice = null;
+    int date = 0;
+
+    System.out.println("||VIEW SALES ORDERS||");
+    System.out.println("1. VIEW ALL SALES");
+    System.out.println("2. VIEW SALES BY MONTH(UPPERCASE): ");
+
+    // Loop to ensure valid user input
+    while(true){
         
-          config conf = new config();
-        Scanner in = new Scanner(System.in);
-        System.out.println("||VIEW SALES ORDERS||");
+        System.out.print("Enter choice: ");
+        choice = in.nextLine().trim();
         
-        String sql = "SELECT t_id,c_fname, c_lname, p_name, t_totalam, t_status, t_date  FROM PROCESS_DETAILS "
-                + "LEFT JOIN CUSTOMER_DETAILS ON CUSTOMER_DETAILS.c_id = PROCESS_DETAILS.c_id "
-                + "LEFT JOIN PRODUCT_DETAILS ON PRODUCT_DETAILS.p_id = PROCESS_DETAILS.p_id";
-        String[] header = {"PROCESS ID","CUSTOMER FIRST NAME","CUSTOMER LASTNAME","PRODUCT NAME","TOTAL AMOUNT","STATUS","DATE"};
-               
-        String[] colom  = {"t_id","c_fname","c_lname","p_name","t_totalam","t_status","t_date"};     
-     conf.viewRecords (sql, header, colom);
-     
-     
-       
+        try{
+            
+            date = Integer.parseInt(choice);
+            if(date==1 || date==2){
+                
+                break;
+                
+            }
+            else{
+                
+                System.out.println("Invalid Number Input");
+            }
+        }
+        catch(NumberFormatException e){
+            
+            System.out.println("Invalid Input");
+        }
     }
-    
+    // Switch to handle logic based on user choice
+    switch (date) {
+        case 1:
+            // Case 1: View all sales records
+            String sql = "SELECT t_id, c_fname, c_lname, p_name, t_totalam, t_status, t_date, t_month FROM PROCESS_DETAILS "
+                    + "LEFT JOIN CUSTOMER_DETAILS ON CUSTOMER_DETAILS.c_id = PROCESS_DETAILS.c_id "
+                    + "LEFT JOIN PRODUCT_DETAILS ON PRODUCT_DETAILS.p_id = PROCESS_DETAILS.p_id";
+            String[] header = {"PROCESS ID", "CUSTOMER FIRST NAME", "CUSTOMER LASTNAME", "PRODUCT NAME", "TOTAL AMOUNT", "STATUS", "DATE", "MONTH"};
+            String[] columns = {"t_id", "c_fname", "c_lname", "p_name", "t_totalam", "t_status", "t_date", "t_month"};
+            conf.viewRecords(sql, header, columns);  // View all sales
+            break;
+
+        case 2:
+            // Case 2: View sales by month
+            System.out.print("Enter the month (e.g., JANUARY, FEBRUARY, etc.): ");
+            String month = in.nextLine().toUpperCase();  // Convert input to uppercase for consistency
+
+            // Check if the entered month is valid
+            if (isValidMonth(month)) {
+                // Proceed with viewing records for the selected month
+
+                // Dynamically create the SQL query for the selected month
+                String monthSql = "SELECT t_id, c_fname, c_lname, p_name, t_totalam, t_status, t_date, t_month "
+                        + "FROM PROCESS_DETAILS "
+                        + "LEFT JOIN CUSTOMER_DETAILS ON CUSTOMER_DETAILS.c_id = PROCESS_DETAILS.c_id "
+                        + "LEFT JOIN PRODUCT_DETAILS ON PRODUCT_DETAILS.p_id = PROCESS_DETAILS.p_id "
+                        + "WHERE t_month = '" + month + "'";  // Inject month directly into the SQL query
+
+                // Define the headers and columns for the month-specific view
+                String[] monthHeader = {"PROCESS ID", "CUSTOMER FIRST NAME", "CUSTOMER LASTNAME", "PRODUCT NAME", "TOTAL AMOUNT", "STATUS", "DATE", "MONTH"};
+                String[] monthColumns = {"t_id", "c_fname", "c_lname", "p_name", "t_totalam", "t_status", "t_date", "t_month"};
+
+                // Call the existing viewRecords method with the dynamically created SQL query
+                conf.viewRecords(monthSql, monthHeader, monthColumns);
+            } else {
+                System.out.println("Invalid month entered. Please enter a valid month (e.g., JANUARY).");
+            }
+            break;
+    }
+}
+
+
+// Helper method to validate the month input (uppercase string)
+private boolean isValidMonth(String month) {
+    String[] validMonths = {
+        "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", 
+        "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+    };
+
+    // Check if the month is in the list of valid months
+    for (String validMonth : validMonths) {
+        if (validMonth.equals(month)) {
+            return true;  // Month is valid
+        }
+    }
+    return false;  // Invalid month
+}
+
     public void deleteprocess(){
         config conf = new config();
         Scanner in = new Scanner(System.in);
