@@ -456,7 +456,7 @@ String status = null;
                 System.out.print("Enter the new product price: ");
                String stockinput = in.nextLine().trim();
                   try {
-          stock = Integer.parseInt(stockinput);
+          price = Integer.parseInt(stockinput);
           if(stock >= 0){
               
               break;
@@ -529,7 +529,7 @@ String status = null;
         while(!another.equalsIgnoreCase("yes ") && !another.equalsIgnoreCase("Yes") && !another.equalsIgnoreCase("YES") && !another.equalsIgnoreCase("no")
               &&  !another.equalsIgnoreCase("NO") && !another.equalsIgnoreCase("No")){
             
-            System.out.print(" \n ENTER: ");
+            System.out.print(" \n INVALID INPUT: ");
             another=in.nextLine();
             
         }
