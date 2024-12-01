@@ -310,7 +310,7 @@ public void viewprocess() {
 
     System.out.println("||VIEW SALES ORDERS||");
     System.out.println("1. VIEW ALL SALES");
-    System.out.println("2. VIEW SALES BY MONTH(UPPERCASE): ");
+    System.out.println("2. VIEW SALES BY MONTH ");
 
     // Loop to ensure valid user input
     while(true){

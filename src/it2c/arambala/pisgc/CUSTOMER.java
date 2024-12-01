@@ -246,7 +246,7 @@ custom.updatecustomer();
             String sql = "INSERT INTO CUSTOMER_DETAILS (c_fname, c_lname, c_email, c_contact) VALUES (?, ?, ?, ?)";
          conf.addRecord(sql, fname, lname, email, contact);
             
-            System.out.println("ADD ANOTHER CUSTOMER(Yes|No)?");
+            System.out.print("ADD ANOTHER CUSTOMER(Yes|No): ");
             another = in.nextLine();
              while(!another.equalsIgnoreCase("yes ") && !another.equalsIgnoreCase("Yes") && !another.equalsIgnoreCase("YES") && !another.equalsIgnoreCase("no")
               &&  !another.equalsIgnoreCase("NO") && !another.equalsIgnoreCase("No")){
@@ -387,7 +387,7 @@ conf.viewRecords(sql, header, colom);
                     }
                
                String sql ="UPDATE CUSTOMER_DETAILS SET c_fname = ?, c_lname = ?, c_email = ?, c_contact = ? WHERE c_id = ?";
-        conf.updateRecord(sql, fname, lname, email, contact, action);
+        conf.updateRecord(sql, fname, lname, email, contact, customerId);
         
         
          System.out.print("\nUPDATE ANOTHER CUSTOMER (Yes|No):");
@@ -396,7 +396,7 @@ conf.viewRecords(sql, header, colom);
         while(!another.equalsIgnoreCase("yes ") && !another.equalsIgnoreCase("Yes") && !another.equalsIgnoreCase("YES") && !another.equalsIgnoreCase("no")
               &&  !another.equalsIgnoreCase("NO") && !another.equalsIgnoreCase("No")){
             
-            System.out.print(" \n ENTER: ");
+            System.out.print(" \n INVALID INPUT, TRY AGAIN: ");
             another=in.nextLine();
             
         }
@@ -453,7 +453,7 @@ conf.viewRecords(sql, header, colom);
              while(!another.equalsIgnoreCase("yes ") && !another.equalsIgnoreCase("Yes") && !another.equalsIgnoreCase("YES") && !another.equalsIgnoreCase("no")
               &&  !another.equalsIgnoreCase("NO") && !another.equalsIgnoreCase("No")){
             
-            System.out.print(" \n ENTER: ");
+            System.out.print(" \n INVALID INPUT, TRY AGAIN: ");
             another=in.nextLine();
             
         }
