@@ -290,7 +290,7 @@ while(true){
           System.out.println("||DELETE PRODUCT||");
           
 while (true) {
-            System.out.print("Enter the ID of the Customer to Delete: ");
+            System.out.print("Enter the ID of the Product to Delete: ");
             String customerInput = in.nextLine().trim();
 
             try {
@@ -361,7 +361,7 @@ String status = null;
        do {
                prod.viewprod();
                while (true) {
-            System.out.print("Enter the ID of the Customer to Update: ");
+            System.out.print("Enter the ID of the Product to Update: ");
             String customerInput = in.nextLine().trim();
 
             try {

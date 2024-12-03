@@ -321,11 +321,11 @@ conf.viewRecords(sql, header, colom);
            break;
         }
         else {
-            System.out.println("Product name should only contain characters");
+            System.out.println("Customer name should only contain characters");
         }
         }
         else{
-            System.out.println("Product name cannot be empty. ");
+            System.out.println("Customer name cannot be empty. ");
         }
                 
                      }
@@ -337,11 +337,11 @@ conf.viewRecords(sql, header, colom);
            break;
         }
         else {
-            System.out.println("Product name should only contain characters");
+            System.out.println("Customer name should only contain characters");
         }
         }
         else{
-            System.out.println("Product name cannot be empty. ");
+            System.out.println("Customer name cannot be empty. ");
         }
                 
                      }
